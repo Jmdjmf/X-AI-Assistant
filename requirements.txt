@@ -1,0 +1,7 @@
+gradio
+faster-whisper
+openai-whisper
+SpeechRecognition
+pyttsx3
+requests
+numpy
