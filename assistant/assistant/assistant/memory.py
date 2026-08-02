@@ -1,18 +1,24 @@
-"""
-memory.py
-Memory Manager
-"""
+import json
+import os
 
-class Memory:
+MEMORY_FILE = "memory.json"
 
-    def __init__(self):
-        self.history = []
+def load_memory():
+    if os.path.exists(MEMORY_FILE):
+        with open(MEMORY_FILE, "r") as f:
+            return json.load(f)
+    return []
 
-    def save(self, text):
-        self.history.append(text)
+def save_memory(memory):
+    with open(MEMORY_FILE, "w") as f:
+        json.dump(memory, f, indent=4)
 
-    def get_history(self):
-        return self.history
+def add_memory(user, assistant):
+    memory = load_memory()
+    memory.append({
+        "user": user,
+        "assistant": assistant
+    })
+    save_memory(memory)
 
-    def clear(self):
-        self.history.clear()
+
