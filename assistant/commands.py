@@ -1,33 +1,33 @@
-"""
-commands.py
-Command Manager for X AI Assistant
-"""
+import webbrowser
+import datetime
 
-class CommandManager:
+class CommandEngine:
 
-    def __init__(self):
-        self.commands = {
-            "youtube": "OPEN_YOUTUBE",
-            "google": "OPEN_GOOGLE",
-            "camera": "OPEN_CAMERA",
-            "calculator": "OPEN_CALCULATOR",
-            "settings": "OPEN_SETTINGS"
-        }
+    def execute(self, command):
 
-    def detect(self, text):
+        text = command.lower()
 
-        text = text.lower()
+        if "open youtube" in text:
+            webbrowser.open("https://www.youtube.com")
+            return "Opening YouTube, Sir."
 
-        for key in self.commands:
-            if key in text:
-                return self.commands[key]
+        elif "open google" in text:
+            webbrowser.open("https://www.google.com")
+            return "Opening Google, Sir."
 
-        if text.startswith("search"):
+        elif "open github" in text:
+            webbrowser.open("https://github.com")
+            return "Opening GitHub, Sir."
+
+        elif "what time" in text:
+            current = datetime.datetime.now().strftime("%I:%M %p")
+            return f"The current time is {current}, Sir."
+
+        elif "search" in text:
             query = text.replace("search", "").strip()
-            return ("SEARCH", query)
+            webbrowser.open(
+                f"https://www.google.com/search?q={query}"
+            )
+            return f"Searching Google for {query}, Sir."
 
-        if text.startswith("type"):
-            content = text.replace("type", "").strip()
-            return ("TYPE", content)
-
-        return ("CHAT", text)
+        return None
