@@ -1,6 +1,7 @@
 from assistant.chat import ChatEngine
 from assistant.commands import CommandEngine
 from assistant.learning import learn
+from assistant.knowledge import answer
 
 chat = ChatEngine()
 commands = CommandEngine()
@@ -28,6 +29,13 @@ while True:
         print("X :", learned)
         continue
 
+    # Answer from personal knowledge
+    personal = answer(text)
+
+    if personal:
+        print("X :", personal)
+        continue
+
     # Execute built-in commands
     result = commands.execute(text)
 
@@ -35,7 +43,7 @@ while True:
         print("X :", result)
         continue
 
-    # Ask AI
+    # Ask Gemini AI
     reply = chat.reply(text)
 
     print("X :", reply)
