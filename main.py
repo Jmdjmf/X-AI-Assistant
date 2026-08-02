@@ -7,6 +7,7 @@ Version 1.0
 from assistant.speech import SpeechEngine
 from assistant.brain import Brain
 from assistant.commands import CommandManager
+from assistant.chat import ChatEngine
 from assistant.automation import Automation
 from assistant.ai import AIEngine
 from assistant.memory import Memory
@@ -17,6 +18,7 @@ commands = CommandManager()
 automation = Automation()
 ai = AIEngine()
 memory = Memory()
+chat = ChatEngine()
 
 print("=" * 60)
 print("        X AI Assistant Professional")
@@ -58,8 +60,6 @@ while True:
 
         elif action[0] == "TYPE":
             automation.type_text(action[1])
-            continue
+            response = chat.reply(command)
 
-    response = brain.think(command)
-
-    print("X :", response)
+print("X :", response)
