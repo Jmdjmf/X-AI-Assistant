@@ -1,27 +1,25 @@
-"""
-chat.py
-Chat Engine
-"""
-
-from config.api_keys import OPENAI_API_KEY, GEMINI_API_KEY
+import google.generativeai as genai
+from config.api_keys import GEMINI_API_KEY
 
 
 class ChatEngine:
 
     def __init__(self):
-        self.name = "X"
+
+        genai.configure(api_key=GEMINI_API_KEY)
+
+        self.model = genai.GenerativeModel("gemini-2.5-flash")
+
+        self.chat = self.model.start_chat(history=[])
 
     def reply(self, message):
 
-        message = message.strip()
+        try:
 
-        if not message:
-            return "Please say something, Sir."
+            response = self.chat.send_message(message)
 
-        if OPENAI_API_KEY:
-            return "Sir, OpenAI connection will be added next."
+            return response.text
 
-        if GEMINI_API_KEY:
-            return "Sir, Gemini connection will be added next."
+        except Exception as e:
 
-        return "Sir, no AI API key has been configured yet."
+            return f"Sorry Sir, I found an error: {e}"
