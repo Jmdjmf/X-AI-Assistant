@@ -1,3 +1,4 @@
+%%writefile assistant/skills/weather.py
 import requests
 
 def get_weather(text):
@@ -11,9 +12,9 @@ def get_weather(text):
     words = text.split()
 
     if "in" in words:
-        idx = words.index("in")
-        if idx + 1 < len(words):
-            city = " ".join(words[idx + 1:])
+        i = words.index("in")
+        if i + 1 < len(words):
+            city = " ".join(words[i + 1:])
 
     try:
         url = f"https://wttr.in/{city}?format=3"
@@ -23,6 +24,6 @@ def get_weather(text):
             return response.text
 
     except Exception:
-        return "Sorry Sir, I couldn't fetch the weather."
+        return "Sorry Sir, Weather service is unavailable."
 
-    return "Sorry Sir, I couldn't fetch the weather."
+    return "Sorry Sir, Weather service is unavailable."
