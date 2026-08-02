@@ -5,6 +5,7 @@ from assistant.chat import ChatEngine
 
 from assistant.skills.time_skill import get_time
 from assistant.skills.calculator import calculate
+from assistant.skills.weather import get_weather
 
 
 class Brain:
@@ -35,10 +36,15 @@ class Brain:
         if result:
             return result
 
+        # Weather Skill
+        result = get_weather(text)
+        if result:
+            return result
+
         # Commands
         command = self.commands.execute(text)
         if command:
             return command
 
-        # Gemini
+        # Gemini AI
         return self.chat.reply(text)
