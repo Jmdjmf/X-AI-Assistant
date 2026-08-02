@@ -1,18 +1,25 @@
 import os
 import google.generativeai as genai
-from assistant.memory import add_memory
+
+from assistant.memory import add_memory, get_memory
 
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
 SYSTEM_PROMPT = """
 You are X, a professional AI assistant.
-Always call the user 'Sir'.
-Be accurate, helpful, and concise.
+
+Rules:
+- Always call the user "Sir".
+- Be polite.
+- Give accurate answers.
+- If you don't know something, say so honestly.
 """
+
 
 class ChatEngine:
 
     def __init__(self):
+
         self.model = genai.GenerativeModel(
             "models/gemini-3.5-flash",
             system_instruction=SYSTEM_PROMPT
@@ -36,6 +43,9 @@ class ChatEngine:
 
             return f"Sorry Sir, I found an error: {e}"
 
+    def history(self):
+
+        return get_memory()
 
 
 
