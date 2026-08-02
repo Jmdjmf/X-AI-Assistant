@@ -1,23 +1,27 @@
 from assistant.chat import ChatEngine
-from assistant.voice import Voice
-from assistant.listener import Listener
+from assistant.commands import CommandEngine
 
 chat = ChatEngine()
-voice = Voice()
-listener = Listener()
+commands = CommandEngine()
 
-print("===== X AI Assistant =====")
-voice.speak("Hello Sir, I am X. How can I help you?")
+print("=" * 50)
+print("X AI Assistant")
+print("=" * 50)
 
 while True:
-    text = listener.listen()
 
-    if text == "":
-        continue
+    text = input("Sir : ")
 
-    if text.lower() in ["exit", "quit", "bye", "goodbye"]:
-        voice.speak("Goodbye Sir.")
+    if text.lower() in ["exit", "quit", "bye"]:
+        print("X : Goodbye Sir.")
         break
 
+    result = commands.execute(text)
+
+    if result:
+        print("X :", result)
+        continue
+
     reply = chat.reply(text)
-    voice.speak(reply)
+
+    print("X :", reply)
