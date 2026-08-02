@@ -1,58 +1,31 @@
-"""
-brain.py
-Professional Brain for X AI Assistant
-"""
+from assistant.learning import learn
+from assistant.knowledge import answer
+from assistant.commands import CommandEngine
+from assistant.chat import ChatEngine
+
 
 class Brain:
 
     def __init__(self):
+        self.chat = ChatEngine()
+        self.commands = CommandEngine()
 
-        self.name = "X"
-        self.version = "1.0"
+    def process(self, text):
 
-    def think(self, command):
+        # Learn new information
+        learned = learn(text)
+        if learned:
+            return learned
 
-        command = command.lower().strip()
+        # Answer from personal knowledge
+        personal = answer(text)
+        if personal:
+            return personal
 
-        # Greetings
-        if command in ["hello", "hi", "hey"]:
-            return "Hello, Sir. How may I assist you?"
+        # Execute commands
+        command = self.commands.execute(text)
+        if command:
+            return command
 
-        # Identity
-        elif "who are you" in command:
-            return "I am X, your personal AI assistant, Sir."
-
-        # Health
-        elif "how are you" in command:
-            return "I'm functioning perfectly, Sir."
-
-        # Time
-        elif "time" in command:
-            from datetime import datetime
-            return "Sir, the current time is " + datetime.now().strftime("%I:%M %p")
-
-        # Date
-        elif "date" in command:
-            from datetime import datetime
-            return "Today's date is " + datetime.now().strftime("%d %B %Y")
-
-        # Open YouTube
-        elif "youtube" in command:
-            return "Opening YouTube, Sir."
-
-        # Open Google
-        elif "google" in command:
-            return "Opening Google, Sir."
-
-        # Search
-        elif command.startswith("search"):
-            query = command.replace("search", "").strip()
-            return f"Searching for {query}, Sir."
-
-        # Stop
-        elif command in ["stop", "exit", "quit"]:
-            return "Goodbye, Sir."
-
-        # Unknown
-        else:
-            return "I'm still learning, Sir. I didn't understand that command."
+        # Ask Gemini AI
+        return self.chat.reply(text)
