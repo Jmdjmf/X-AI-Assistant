@@ -26,17 +26,17 @@ class Brain:
         if personal:
             return personal
 
-        # Time Skill
+        # Time
         result = get_time(text)
         if result:
             return result
 
-        # Calculator Skill
+        # Calculator
         result = calculate(text)
         if result:
             return result
 
-        # Weather Skill
+        # Weather
         result = get_weather(text)
         if result:
             return result
@@ -46,5 +46,5 @@ class Brain:
         if command:
             return command
 
-        # Gemini AI
+        # Gemini Chat
         return self.chat.reply(text)
