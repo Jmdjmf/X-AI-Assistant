@@ -11,9 +11,9 @@ def get_weather(text):
     words = text.split()
 
     if "in" in words:
-        index = words.index("in")
-        if index + 1 < len(words):
-            city = " ".join(words[index + 1:])
+        idx = words.index("in")
+        if idx + 1 < len(words):
+            city = " ".join(words[idx + 1:])
 
     try:
         url = f"https://wttr.in/{city}?format=3"
@@ -23,6 +23,6 @@ def get_weather(text):
             return response.text
 
     except Exception:
-        pass
+        return "Sorry Sir, I couldn't fetch the weather."
 
     return "Sorry Sir, I couldn't fetch the weather."
