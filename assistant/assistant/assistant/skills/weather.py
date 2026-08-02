@@ -1,8 +1,6 @@
 import requests
 
-
 def get_weather(text):
-
     text = text.lower()
 
     if "weather" not in text:
@@ -10,9 +8,15 @@ def get_weather(text):
 
     city = "Delhi"
 
-    url = f"https://wttr.in/{city}?format=3"
+    words = text.split()
+
+    if "in" in words:
+        index = words.index("in")
+        if index + 1 < len(words):
+            city = " ".join(words[index + 1:])
 
     try:
+        url = f"https://wttr.in/{city}?format=3"
         response = requests.get(url, timeout=5)
 
         if response.status_code == 200:
@@ -21,4 +25,4 @@ def get_weather(text):
     except Exception:
         pass
 
-    return "Sorry Sir, I couldn't get the weather right now."
+    return "Sorry Sir, I couldn't fetch the weather."
