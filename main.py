@@ -33,7 +33,7 @@ speech.start()
 
 while True:
 
-    command = input("Sir : ")
+    command = input("Sir : ").strip()
 
     if command.lower() == "exit":
         speech.stop()
@@ -59,7 +59,9 @@ while True:
             continue
 
         elif action[0] == "TYPE":
-            automation.type_text(action[1])
-            response = chat.reply(command)
+            print("Typing:", action[1])
+            continue
 
-print("X :", response)
+    response = chat.reply(command)
+
+    print("X :", response)
