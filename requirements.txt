@@ -1,9 +1,9 @@
 openai-whisper
 SpeechRecognition
-pyaudio
 sounddevice
 soundfile
 numpy
 torch
 transformers
-pyttsx3
+gTTS
+pygame
