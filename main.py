@@ -1,24 +1,33 @@
-print("=" * 40)
-print("        X AI Assistant")
-print("=" * 40)
+"""
+X AI Assistant
+Main Program
+"""
+
+from assistant.brain import Brain
+from assistant.speech import SpeechEngine
+
+brain = Brain()
+speech = SpeechEngine()
+
+print("=" * 50)
+print("            X AI Assistant")
+print("=" * 50)
 
 print("Status : Ready")
-print("Voice  : Waiting...")
-print("Mode   : Beginner Version")
+print("Assistant : Hello, Sir.")
+print("Type 'exit' to close X.\n")
+
+speech.start()
 
 while True:
 
-    command = input("You : ")
+    command = input("Sir : ")
 
     if command.lower() == "exit":
-        print("X : Goodbye!")
+        speech.stop()
+        print("X : Goodbye, Sir.")
         break
 
-    elif command.lower() == "hello":
-        print("X : Hello! Nice to meet you.")
+    response = brain.think(command)
 
-    elif command.lower() == "who are you":
-        print("X : I am X, your AI Assistant.")
-
-    else:
-        print("X : I heard ->", command)
+    print("X :", response)
