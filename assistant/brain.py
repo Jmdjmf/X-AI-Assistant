@@ -3,6 +3,9 @@ from assistant.knowledge import answer
 from assistant.commands import CommandEngine
 from assistant.chat import ChatEngine
 
+from assistant.skills.time_skill import get_time
+from assistant.skills.calculator import calculate
+
 
 class Brain:
 
@@ -17,15 +20,25 @@ class Brain:
         if learned:
             return learned
 
-        # Answer from personal knowledge
+        # Personal knowledge
         personal = answer(text)
         if personal:
             return personal
 
-        # Execute commands
+        # Time Skill
+        result = get_time(text)
+        if result:
+            return result
+
+        # Calculator Skill
+        result = calculate(text)
+        if result:
+            return result
+
+        # Commands
         command = self.commands.execute(text)
         if command:
             return command
 
-        # Ask Gemini AI
+        # Gemini
         return self.chat.reply(text)
