@@ -1,22 +1,27 @@
 """
 chat.py
-AI Chat Engine
+Chat Engine
 """
 
-import requests
+from config.api_keys import OPENAI_API_KEY, GEMINI_API_KEY
 
 
 class ChatEngine:
 
     def __init__(self):
         self.name = "X"
-        self.version = "1.0"
 
     def reply(self, message):
 
         message = message.strip()
 
-        if message == "":
+        if not message:
             return "Please say something, Sir."
 
-        return f"I understood: {message}\nSir, our online AI engine will be connected in the next step."
+        if OPENAI_API_KEY:
+            return "Sir, OpenAI connection will be added next."
+
+        if GEMINI_API_KEY:
+            return "Sir, Gemini connection will be added next."
+
+        return "Sir, no AI API key has been configured yet."
