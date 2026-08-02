@@ -1,7 +1,9 @@
-gradio
-faster-whisper
 openai-whisper
 SpeechRecognition
-pyttsx3
-requests
+pyaudio
+sounddevice
+soundfile
 numpy
+torch
+transformers
+pyttsx3
